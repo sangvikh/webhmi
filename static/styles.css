@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #191919;
+}
+
+.joystick-area {
+    position: relative;
+    left: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: #323232;
+    border-radius: 50%;
+}
+
+.joystick {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 100px;
+    height: 100px;
+    background-color: #4b4b4b;
+    border-radius: 5px;
+    touch-action: none;
+}
+
+.top-banner {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    top: 90%;
+    background-color: #323232;
+}
