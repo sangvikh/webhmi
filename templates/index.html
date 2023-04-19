@@ -10,13 +10,14 @@
     <div class="joystick-area" id="joystickArea">
         <div class="joystick" id="joystick"></div>
     </div>
-    <div id="joystickValue" class="joystick-value">x: 0, y: 0</div>
-    <script src="{{ url_for('static', filename='joystick.js') }}"></script>
 
     <div class="banner" id="topBanner"style="top: 0;"></div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     <div class="widget" id="leftWidget" style="left: 0;"></div>
-    <div class="widget" id="rightWidget"style="right: 0;"></div>
+    <div class="widget" id="rightWidget"style="right: 0;">
+        <div id="joystickValue" class="joystick-value">x: 0, y: 0</div>
+        <script src="{{ url_for('static', filename='joystick.js') }}"></script>
+    </div>
     <div class="video-widget" id="videoWidget"></div>
 </body>
 </html>

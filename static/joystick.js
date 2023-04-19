@@ -28,6 +28,8 @@ function handleTouchMove(e) {
 function handleTouchEnd(e) {
     e.preventDefault();
     joystick.style.transform = `translate(0%, 0%)`;
+    updateJoystickValue(0, 0);
+    sendJoystickData(0,0);
 }
 
 function handleMouseDown(e) {
@@ -47,6 +49,8 @@ function handleMouseUp(e) {
     e.preventDefault();
     isMouseDown = false;
     joystick.style.transform = `translate(0%, 0%)`;
+    updateJoystickValue(0, 0);
+    sendJoystickData(0,0);
 }
 
 function moveJoystick(input) {
