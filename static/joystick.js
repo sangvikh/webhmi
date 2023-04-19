@@ -54,7 +54,7 @@ class JoystickController
       const xPosition = distance * Math.cos(angle);
       const yPosition = distance * Math.sin(angle);
       // move stick image to new position
-        stick.style.transform = `translate3d(${xPosition}px, ${yPosition}px, 0px)`;
+      stick.style.transform = `translate3d(${xPosition}%, ${yPosition}%, 0px)`;
       // deadzone adjustment
       const distance2 = (distance < deadzone) ? 0 : maxDistance / (maxDistance - deadzone) * (distance - deadzone);
         const xPosition2 = distance2 * Math.cos(angle);
@@ -63,6 +63,9 @@ class JoystickController
         const yPercent = parseFloat((yPosition2 / maxDistance).toFixed(4));
         
         self.value = { x: xPercent, y: yPercent };
+        
+      // move stick image to new position
+      //stick.style.transform = `translate3d(${xPercent}%, ${yPercent}%, 0px)`;
       }
     function handleUp(event) 
     {
@@ -72,6 +75,7 @@ class JoystickController
         // transition the joystick position back to center
         stick.style.transition = '.2s';
         stick.style.transform = `translate3d(0px, 0px, 0px)`;
+        stick.style.scale = `100%`
         // reset everything
         self.value = { x: 0, y: 0 };
         self.touchId = null;
@@ -86,7 +90,7 @@ class JoystickController
   }
 }
 
-let myStick = new JoystickController("joystick", 64, 8);
+let myStick = new JoystickController("joystick", 50, 8);
 function update()
 {
   document.getElementById("status").innerText = "Joystick1: " + JSON.stringify(joystick1.value);
