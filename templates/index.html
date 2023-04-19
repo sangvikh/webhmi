@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="right-widget" id="rightWidget">
+    <div class="widget" id="rightWidget" style="right: 0%;">
 
         </div>
     <div class="joystick-area" id="joystickArea">
         <div class="joystick" id="joystick"></div>     
     <script src="{{ url_for('static', filename='joystick.js') }}"></script>
     </div>
-    <div class="top-banner" id="topBanner"></div>
-    <div class="bottom-banner" id="bottomBanner"></div>
-    <div class="left-widget" id="leftWidget"></div>
+    <div class="banner" id="topBanner" style="top: 0%;"></div>
+    <div class="banner" id="bottomBanner" style="bottom: 0%;"></div>
+    <div class="widget" id="leftWidget" style="left: 0%;"></div>
     <div class="video-widget" id="videoWidget"></div>
 </body>
 </html>
