@@ -55,3 +55,7 @@ body {
     border-radius: 10px;
     z-index: 2;
 }
+
+.joystick-value {
+    z-index: 99;
+}
