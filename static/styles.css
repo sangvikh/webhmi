@@ -7,9 +7,50 @@ body {
     background-color: #191919;
 }
 
+.top-banner {
+    position: absolute;
+    width: 100%;
+    height: 12.5%;
+    top: 0%;
+    background-color: #323232;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.bottom-banner {
+    position: absolute;
+    width: 100%;
+    height: 12.5%;
+    bottom: 0%;
+    background-color: #323232;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.right-widget {
+    position: absolute;
+    width: 12.5%;
+    height: 80%;
+    right: 0%;
+    background-color: #202020;
+    border-radius: 10px;
+    z-index: -2;
+}
+
+.left-widget {
+    position: absolute;
+    width: 12.5%;
+    height: 80%;
+    left: 0%;
+    background-color: #202020;
+    border-radius: 10px;
+    z-index: -2;
+}
+
 .joystick-area {
-    position: relative;
-    left: 20px;
+    position: absolute;
+    top: 37.5%;
+    left: 37.5%;
     width: 200px;
     height: 200px;
     background-color: #323232;
@@ -20,17 +61,9 @@ body {
     position: absolute;
     top: 25%;
     left: 25%;
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    height: 50%;
     background-color: #4b4b4b;
-    border-radius: 5px;
+    border-radius: 50%;
     touch-action: none;
-}
-
-.top-banner {
-    position: relative;
-    width: 100%;
-    height: 10%;
-    top: 90%;
-    background-color: #323232;
 }
