@@ -49,6 +49,7 @@ body {
 .video-widget {
     position: absolute;
     width:60%;
+    max-height: 75%;
     aspect-ratio: 16/9;
     background-color: #ffffff;
     border-radius: 10px;
