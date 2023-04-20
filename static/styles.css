@@ -10,7 +10,7 @@ body {
 .banner {
     position: absolute;
     width: 100%;
-    height: 12.5%;
+    height: 10%;
     background-color: #323232;
     border-radius: 10px;
     z-index: -2;
@@ -19,8 +19,8 @@ body {
 .widget {
     position: absolute;
     width: 20%;
-    height: 75%;
-    bottom: 12.5%;
+    height: 80%;
+    bottom: 10%;
     background-color: #474747;
     border-radius: 10px;
     z-index: -1;
@@ -60,12 +60,8 @@ body {
     z-index: -2;
 }
 
-.joystick-value {
-    z-index: 99;
-}
-
 .fullscreen-button {
-    width: 50%;
+    width: 20%;
     aspect-ratio: 2;
     background-color: #ffffff;
     text-emphasis-color: white;
@@ -86,25 +82,26 @@ body {
 
 .battery-container {
     position: absolute;
-    left: 85%;
+    left: 50px;
     top: 50%;
     transform: translateY(-50%);
-    width: 10%;
-    aspect-ratio: 3;
+    width: 100px;
+    height: 50px;
     border: 2px solid black;
     background-color: rgb(128, 128, 128);
     position: relative;
     border-radius: 5px;
     z-index: 1;
 }
-.battery-level {
+.battery-level {    
     height: 100%;
-    background-color: lime;
+    background-color: rgb(0, 160, 0);
     position: absolute;
     left: 0;
     transition: width 0.5s;
     border-radius: 5px;
 }
+
 .battery-text {
     position: absolute;
     top: 50%;
@@ -112,4 +109,16 @@ body {
     transform: translate(-50%, -50%);
     font-size: 24px;
     font-weight: bold;
+}
+
+.battery-pole {
+    position: absolute;
+    border: 2px solid black;
+    background-color: rgb(128, 128, 128);
+    border-radius: 5px;
+    left: 100%;
+    width: 2%;
+    height: 50%;
+    top: 50%;
+    transform: translateY(-50%);
 }
