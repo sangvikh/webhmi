@@ -36,7 +36,6 @@ function handleTouchEnd(e) {
     joystick.style.transform = `translate(0%, 0%)`;
     isInsideJoystickArea = false;
     updateJoystickValue(0, 0);
-    sendJoystickData(0, 0);
 }
 
 function handleMouseDown(e) {
@@ -60,7 +59,6 @@ function handleMouseUp(e) {
     joystick.style.transform = `translate(0%, 0%)`;
     isMouseDown = false;
     updateJoystickValue(0, 0);
-    sendJoystickData(0,0);
 }
 
 function moveJoystick(input) {
@@ -85,13 +83,13 @@ function moveJoystick(input) {
 
     // Update the displayed joystick values
     updateJoystickValue(joystickX / maxDistance, joystickY / maxDistance);
-
-    // Send joystick data to the server
-    sendJoystickData(joystickX / maxDistance, joystickY / maxDistance);
 }
 
 function updateJoystickValue(x, y) {
+    // Update text content
     joystickValue.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
+    // Send joystick data to the server
+    sendJoystickData(x, y);
 }
 
 function sendJoystickData(x, y) {
