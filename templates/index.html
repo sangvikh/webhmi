@@ -19,14 +19,19 @@
         <div class="battery-container">
             <div class="battery-level" id="battery-level"></div>
             <div class="battery-text" id="battery-text"></div>
+        <div class="battery-container" style="z-index: 1; width: 2%; height: 50%; left: 101%;"></div>
         </div>
-        <script src="{{ url_for('static', filename='battery.js') }}"></script></div>
+        <script src="{{ url_for('static', filename='battery.js') }}"></script>
+    </div>
+
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     <div class="widget" id="leftWidget" style="left: 0;"></div>
+
     <div class="widget" id="rightWidget"style="right: 0;">
         <div id="joystickValue" class="joystick-value">x: 0, y: 0</div>
         <script src="{{ url_for('static', filename='joystick.js') }}"></script>
     </div>
+
     <div class="video-widget" id="videoWidget"></div>
 </body>
 </html>

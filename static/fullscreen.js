@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const fullscreenButton = document.getElementById("fullscreenButton");
+    const overlay = document.getElementById("overlay");
 
     fullscreenButton.addEventListener("click", function () {
         if (!document.fullscreenElement) {
@@ -28,8 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function onFullScreenChange() {
         if (document.fullscreenElement) {
             fullscreenButton.style.display = "none";
+            overlay.style.display = "none";
         } else {
             fullscreenButton.style.display = "block";
+            overlay.style.display = "block";
         }
     }
 
@@ -37,4 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("mozfullscreenchange", onFullScreenChange); // Firefox
     document.addEventListener("webkitfullscreenchange", onFullScreenChange); // Chrome, Safari and Opera
     document.addEventListener("MSFullscreenChange", onFullScreenChange); // IE/Edge
+
+    // Show the overlay when the page loads
+    overlay.style.display = "block";
 });
