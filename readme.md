@@ -1,14 +1,13 @@
 # Webhmi
 
-
+Web based touch HMI to control different robots
 
 ## Requirements
 - Pip
-- Flask
-    pip install Flask 
+- Flask: `pip install Flask `
 
 ## Usage
-    python3 run app.py
+    python3 app.py
 
 ## TODO
 - Add video feed
