@@ -15,7 +15,12 @@
     <button class="fullscreen-button" id="fullscreenButton">Go Fullscreen</button>
     <script src="{{ url_for('static', filename='fullscreen.js') }}"></script>
 
-    <div class="banner" id="topBanner"style="top: 0;"></div>
+    <div class="banner" id="topBanner"style="top: 0;">
+        <div class="battery-container">
+            <div class="battery-level" id="battery-level"></div>
+            <div class="battery-text" id="battery-text"></div>
+        </div>
+        <script src="{{ url_for('static', filename='battery.js') }}"></script></div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     <div class="widget" id="leftWidget" style="left: 0;"></div>
     <div class="widget" id="rightWidget"style="right: 0;">

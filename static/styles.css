@@ -72,7 +72,7 @@ body {
     border-width: 3px;
 }
 
-overlay {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -80,4 +80,26 @@ overlay {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
+}
+
+.battery-container {
+    width: 200px;
+    height: 60px;
+    border: 2px solid black;
+    position: relative;
+}
+.battery-level {
+    height: 100%;
+    background-color: lime;
+    position: absolute;
+    left: 0;
+    transition: width 0.5s;
+}
+.battery-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
 }

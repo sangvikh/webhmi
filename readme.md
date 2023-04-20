@@ -3,8 +3,8 @@
 Web based touch HMI to control different robots
 
 ## Requirements
-- Python3 `sudo apt install python3`
-- Pip `sudo apt install python3-pip`
+- Python3: `sudo apt install python3`
+- Pip: `sudo apt install python3-pip`
 - Flask: `pip install Flask `
 
 ## Usage
