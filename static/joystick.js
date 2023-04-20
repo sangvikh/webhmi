@@ -3,44 +3,53 @@ const joystickArea = document.getElementById('joystickArea');
 const joystickValue = document.getElementById('joystickValue');
 
 // Touch events
-joystickArea.addEventListener('touchstart', handleTouchStart, false);
-joystickArea.addEventListener('touchmove', handleTouchMove, false);
-joystickArea.addEventListener('touchend', handleTouchEnd, false);
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
+document.addEventListener('touchend', handleTouchEnd, false);
 
 // Mouse events
-joystickArea.addEventListener('mousedown', handleMouseDown, false);
-joystickArea.addEventListener('mousemove', handleMouseMove, false);
-joystickArea.addEventListener('mouseup', handleMouseUp, false);
-joystickArea.addEventListener('mouseleave', handleMouseUp, false);
+document.addEventListener('mousedown', handleMouseDown, false);
+document.addEventListener('mousemove', handleMouseMove, false);
+document.addEventListener('mouseup', handleMouseUp, false);
+document.addEventListener('mouseleave', handleMouseUp, false);
 
 let isMouseDown = false;
+let isInsideJoystickArea = false;
 
 function handleTouchStart(e) {
-    e.preventDefault();
-    moveJoystick(e.targetTouches[0]);
+    if (e.target === joystick || e.target === joystickArea) {
+        e.preventDefault();
+        isInsideJoystickArea = true;
+        moveJoystick(e.targetTouches[0]);
+    }
 }
 
 function handleTouchMove(e) {
-    e.preventDefault();
-    moveJoystick(e.targetTouches[0]);
+    if (isInsideJoystickArea) {
+        e.preventDefault();
+        moveJoystick(e.targetTouches[0]);
+    }
 }
 
 function handleTouchEnd(e) {
     e.preventDefault();
     joystick.style.transform = `translate(0%, 0%)`;
+    isInsideJoystickArea = false;
     updateJoystickValue(0, 0);
-    sendJoystickData(0,0);
+    sendJoystickData(0, 0);
 }
 
 function handleMouseDown(e) {
-    e.preventDefault();
-    isMouseDown = true;
-    moveJoystick(e);
+    if (e.target === joystick || e.target === joystickArea) {
+        e.preventDefault();
+        isMouseDown = true;
+        moveJoystick(e);
+    }
 }
 
 function handleMouseMove(e) {
-    e.preventDefault();
     if (isMouseDown) {
+        e.preventDefault();
         moveJoystick(e);
     }
 }
@@ -49,6 +58,7 @@ function handleMouseUp(e) {
     e.preventDefault();
     isMouseDown = false;
     joystick.style.transform = `translate(0%, 0%)`;
+    isMouseDown = false;
     updateJoystickValue(0, 0);
     sendJoystickData(0,0);
 }
