@@ -13,8 +13,7 @@ def joystick_data():
     y = data['y']
     
     # Process joystick data
-    # ...
-    print(x)
+    print("x: {}, y: {}".format(x, y))
     
     return jsonify({'result': 'success'})
 
