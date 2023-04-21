@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
                 document.documentElement.msRequestFullscreen();
             }
-            
-      toggleFullScreen();
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
