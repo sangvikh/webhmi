@@ -2,6 +2,8 @@
 
 Web based touch HMI to control different robots
 
+![HMI](media/TouchHmi.png)
+
 ## Requirements
 - Python3: `sudo apt install python3`
 - Pip: `sudo apt install python3-pip`
