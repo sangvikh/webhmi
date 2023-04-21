@@ -63,7 +63,7 @@ body {
     transform: translate(-50%, -50%);
     width: calc(100% - 2*var(--widgetWidth));
     max-height: calc(100% - 2*var(--bannerHeight));
-    background-color: #ffffff;
+    background-color: #000000;
     border-radius: var(--cornerRadius);
     z-index: -2;
 }

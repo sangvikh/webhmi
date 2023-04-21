@@ -11,9 +11,11 @@
         <div class="joystick" id="joystick"></div>
     </div>
 
+<!--
     <div class="overlay" id="overlay"></div>
     <button class="fullscreen-button" id="fullscreenButton">Go Fullscreen</button>
     <script src="{{ url_for('static', filename='fullscreen.js') }}"></script>
+-->
 
     <div class="banner" id="topBanner"style="top: 0;"></div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
@@ -24,6 +26,8 @@
         <script src="{{ url_for('static', filename='joystick.js') }}"></script>
     </div>
 
-    <div class="video-widget" id="videoWidget"></div>
+    <div class="video-widget" id="videoWidget">
+        <img src="https://www.zermatt.ch/html/bergbahnen/webcams/bahnhof.jpg" style='height: 100%; width: 100%; object-fit: contain'>
+    </div>
 </body>
 </html>
