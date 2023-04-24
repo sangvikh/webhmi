@@ -27,7 +27,7 @@
     </div>
 
     <div class="video-widget" id="videoWidget">
-        <img src="https://www.zermatt.ch/html/bergbahnen/webcams/bahnhof.jpg" style='height: 100%; width: 100%; object-fit: contain'>
+	<img src="{{ url_for('video_feed') }}" alt="Video stream" style='height: 100%; width: 100%; object-fit: contain'>
     </div>
 </body>
 </html>
