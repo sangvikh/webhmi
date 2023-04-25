@@ -61,6 +61,8 @@ function handleMouseUp(e) {
     updateJoystickValue(0, 0);
 }
 
+const debouncedSendJoystickData = debounce(sendJoystickData, 10);
+
 function moveJoystick(input) {
     const rect = joystickArea.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -81,7 +83,7 @@ function moveJoystick(input) {
 
     joystick.style.transform = `translate(${joystickX}px, ${joystickY}px)`;
 
-    // Update the displayed joystick values
+    // Update joystick values
     updateJoystickValue(joystickX / maxDistance, joystickY / maxDistance);
 }
 
@@ -89,7 +91,8 @@ function updateJoystickValue(x, y) {
     // Update text content
     joystickValue.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
     // Send joystick data to the server
-    sendJoystickData(x, y);
+    //sendJoystickData(x, y);
+    debouncedSendJoystickData(x, y);
 }
 
 function sendJoystickData(x, y) {
@@ -109,4 +112,18 @@ function sendJoystickData(x, y) {
   .catch(error => {
       console.error('Error:', error);
   });
+}
+
+function debounce(func, wait) {
+    let timeout;
+
+    return function (...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
