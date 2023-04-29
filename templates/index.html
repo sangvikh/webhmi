@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Touch Joystick</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <div class="joystick-area" id="joystickArea">
         <div class="joystick" id="joystick"></div>
     </div>
-
-<!--
-    <div class="overlay" id="overlay"></div>
-    <button class="fullscreen-button" id="fullscreenButton">Go Fullscreen</button>
-    <script src="{{ url_for('static', filename='fullscreen.js') }}"></script>
--->
 
     <div class="banner" id="topBanner"style="top: 0;"></div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
@@ -23,7 +17,7 @@
 
     <div class="widget" id="rightWidget"style="right: 0;">
         <div id="joystickValue" style="z-index: 99;">  x: 0, y: 0</div>
-        <script src="{{ url_for('static', filename='joystick.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/joystick.js') }}"></script>
     </div>
 
     <div class="video-widget" id="videoWidget">

@@ -2,7 +2,7 @@
 
 Web based touch HMI to control different robots
 
-![HMI](media/TouchHmi.png)
+![HMI](static/images/TouchHmi.png)
 
 ## Requirements
 - Python3: `sudo apt install python3`
@@ -14,9 +14,9 @@ Web based touch HMI to control different robots
     python3 app.py
 
 ## TODO
-- Add video feed [x]
-- Add buttons
-- Make widgets movable in runtime
-- Add indicators for battery and wifi signal
-- Add menu
-- Integrate ROS2
+- [x] Add video feed
+- [ ] Add buttons
+- [ ] Make widgets movable in runtime
+- [ ] Add indicators for battery and wifi signal
+- [ ] Add menu
+- [ ] Integrate ROS2
