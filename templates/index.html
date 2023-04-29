@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="joystick-area" id="joystickArea">
-        <div class="joystick" id="joystick"></div>
-    </div>
-
     <div class="banner" id="topBanner"style="top: 0;"></div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     <div class="widget" id="leftWidget" style="left: 0;">
@@ -22,11 +18,14 @@
 
     <div class="widget" id="rightWidget"style="right: 0;">
         <div id="joystickValue" style="z-index: 99;">  x: 0, y: 0</div>
+        <div class="joystick-area" id="joystickArea">
+            <div class="joystick" id="joystick"></div>
+        </div>
         <script src="{{ url_for('static', filename='js/joystick.js') }}"></script>
     </div>
 
     <div class="video-widget" id="videoWidget">
-	<img src="{{ url_for('video_feed') }}" alt="Video stream" style='height: 100%; width: 100%; object-fit: contain'>
+	    <img src="{{ url_for('video_feed') }}" alt="Video stream" style='height: 100%; width: 100%; object-fit: contain'>
     </div>
 </body>
 </html>

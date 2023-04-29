@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    document.getElementById("currentNumber").textContent = data.new_value;
+                    document.getElementById("currentZoom").textContent = data.new_value.toFixed(2);
                 });
         }
 

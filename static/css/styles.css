@@ -34,12 +34,12 @@ body {
 
 .joystick-area {
     position: absolute;
-    width: calc(var(--widgetWidth)*0.75);
+    width: 75%;
     aspect-ratio: 1;
     background-color: #323232;
     border-radius: 50%;
     transform: translate(50%, 50%);
-    right: calc(var(--widgetWidth)/2);
+    right: 50%;
     bottom: 50%;
 
 }
