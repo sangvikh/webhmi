@@ -20,3 +20,4 @@ Web based touch HMI to control different robots
 - [ ] Add indicators for battery and wifi signal
 - [ ] Add menu
 - [ ] Integrate ROS2
+- [ ] Compress video

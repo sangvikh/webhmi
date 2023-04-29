@@ -23,5 +23,19 @@ def video_feed():
     return Response(video.gen_frames(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+zoom = 1
+@app.route('/zoom_in', methods=['POST'])
+def zoom_in():
+    global zoom
+    zoom = video.set_zoom(zoom + 0.05)
+    print("Zoom: {}".format(zoom))
+    return jsonify(new_value=zoom)
+@app.route('/zoom_out', methods=['POST'])
+def zoom_out():
+    global zoom
+    zoom = video.set_zoom(zoom - 0.05)
+    print("Zoom: {}".format(zoom))
+    return jsonify(new_value=zoom)
+
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host="0.0.0.0")

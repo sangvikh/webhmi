@@ -29,7 +29,7 @@ body {
     bottom: var(--bannerHeight);
     background-color: #474747;
     border-radius: var(--cornerRadius);
-    z-index: -1;
+    z-index: 1;
 }
 
 .joystick-area {
