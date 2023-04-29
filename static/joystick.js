@@ -81,15 +81,17 @@ function moveJoystick(input) {
 
     joystick.style.transform = `translate(${joystickX}px, ${joystickY}px)`;
 
-    // Update the displayed joystick values
+    // Update joystick values
     updateJoystickValue(joystickX / maxDistance, joystickY / maxDistance);
 }
+
+const throttledSendJoystickData = throttle(sendJoystickData, 100);
 
 function updateJoystickValue(x, y) {
     // Update text content
     joystickValue.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
     // Send joystick data to the server
-    sendJoystickData(x, y);
+    throttledSendJoystickData(x, y);
 }
 
 function sendJoystickData(x, y) {
@@ -109,4 +111,16 @@ function sendJoystickData(x, y) {
   .catch(error => {
       console.error('Error:', error);
   });
+}
+
+function throttle(func, limit) {
+    let lastCall = 0;
+
+    return function (...args) {
+        const now = Date.now();
+        if (now - lastCall >= limit) {
+            lastCall = now;
+            func(...args);
+        }
+    };
 }
