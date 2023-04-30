@@ -85,3 +85,15 @@ body {
     background-color: rgba(0, 0, 0, 0.66);
     display: none;
 }
+
+.zoom-button {
+    position: absolute;
+    width: 50%;
+    margin: 0%;
+    bottom: 0;
+    aspect-ratio: 1;
+    background-color: #777777;
+    border-width: 1px;
+    border-color: #646464;
+    border-radius: 0px;
+}

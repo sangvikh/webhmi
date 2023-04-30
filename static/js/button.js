@@ -16,19 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
 
-        button.addEventListener("mousedown", function () {
+        function startUpdating() {
             updateNumber();
             intervalId = setInterval(updateNumber, 100); // Adjust the interval as needed
-        });
+        }
 
-        button.addEventListener("mouseup", function () {
+        function stopUpdating() {
             clearInterval(intervalId);
-        });
+        }
 
-        // Handle the case when the mouse leaves the button while pressed
-        button.addEventListener("mouseleave", function () {
-            clearInterval(intervalId);
+        button.addEventListener("mousedown", startUpdating);
+        button.addEventListener("mouseup", stopUpdating);
+        button.addEventListener("mouseleave", stopUpdating);
+
+        // Touch events for mobile devices
+        button.addEventListener("touchstart", (event) => {
+            event.preventDefault(); // Prevents mouse events from being triggered
+            startUpdating();
         });
+        button.addEventListener("touchend", stopUpdating);
     }
 
     createButtonHandler("/zoom_in", "zoomInButton");
