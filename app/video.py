@@ -22,7 +22,7 @@ def gen_frames():
 
 def set_zoom(value = 1):
     global zoomVal
-    zoomVal = max(value, 1)
+    zoomVal = min(max(value, 1), 10)
     return zoomVal
 
 def zoom(img, zoom, coord=None):
