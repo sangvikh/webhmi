@@ -1,5 +1,6 @@
 :root {
-    --cornerRadius: 0px;
+    color: white; 
+    --cornerRadius: 0px; /* Default text color */
     --bannerHeight: 10%;
     --widgetWidth: 20%;
 }
@@ -30,6 +31,7 @@ body {
     background-color: #474747;
     border-radius: var(--cornerRadius);
     z-index: 1;
+    color: white;
 }
 
 .joystick-area {
@@ -95,5 +97,6 @@ body {
     background-color: #777777;
     border-width: 1px;
     border-color: #646464;
-    border-radius: 0px;
+    border-radius: var(--cornerRadius);
+    color: white;
 }

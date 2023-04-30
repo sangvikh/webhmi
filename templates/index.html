@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="banner" id="topBanner"style="top: 0;"></div>
+    <div class="banner" id="topBanner"style="top: 0;">
+        <p style="display: inline;">&emsp; Zoom: <span id="currentZoom">1.00</span></p>
+        <p style="display: inline;">&emsp; Vbat: <span id="vBat">12.00 V</span></p>
+        <p style="display: inline;">&emsp; Ibat: <span id="iBat">1.00 A</span></p>
+        <p style="display: inline;">&emsp; Vsol: <span id="vSol">18.00 V</span></p>
+        <p style="display: inline;">&emsp; Isol: <span id="iSol">0.50 A</span></p>
+    </div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     
     <div class="widget" id="leftWidget" style="left: 0;">
         <button id="zoomInButton" class="zoom-button" style="left: 0">Zoom in</button>
         <button id="zoomOutButton" class="zoom-button"style="right: 0">Zoom out</button>
-        <p>Current zoom: <span id="currentZoom">0</span></p>
-        <p>Vbat: <span id="vBat">12 V</span></p>
-        <p>Ibat: <span id="iBat">1 A</span></p>
-        <p>Vsol: <span id="vSol">18 V</span></p>
-        <p>Isol: <span id="iSol">0.5 A</span></p>
         <script src="{{ url_for('static', filename='js/button.js') }}"></script>
     </div>
 
