@@ -4,11 +4,6 @@ zoomVal = 1
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
-    ret, frame = cap.read() # Initializing the video frame
-    # setting width & height of the video frame
-    width = frame.shape[1] 
-    height = frame.shape[0]
-    
     while True:
         success, frame = cap.read()
         frame = zoom(frame, zoomVal)
