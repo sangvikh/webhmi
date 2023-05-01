@@ -1,11 +1,13 @@
 import cv2
-import numpy as np
 from io import BytesIO
 
 zoomVal = 1
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
+
+    # Define the compression quality (lower values for higher compression)
+    compression_quality = 80
 
     # Define the codec and create VideoWriter object
     fourcc = cv2.VideoWriter_fourcc(*'VP80')  # VP8 codec
@@ -19,7 +21,7 @@ def gen_frames():
 
             # Write frame to the in-memory buffer
             buffer = BytesIO()
-            is_success, buf = cv2.imencode('.webp', frame)
+            is_success, buf = cv2.imencode('.webp', frame, [cv2.IMWRITE_WEBP_QUALITY, compression_quality])
             if is_success:
                 buffer.write(buf)
                 frame = buffer.getvalue()
