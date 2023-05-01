@@ -1,19 +1,31 @@
 import cv2
+import numpy as np
 
 zoomVal = 1
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
+
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'VP90') # VP9 codec
+    out = cv2.VideoWriter('output.webm', fourcc, 20.0, (640, 480))
+
     while True:
         ret, frame = cap.read()
         if not ret:
             break
         else:
             frame = zoom(frame, zoomVal)
-            ret, buffer = cv2.imencode('.jpg', frame)
+            out.write(frame)
+
+            ret, buffer = cv2.imencode('.webp', frame) # Compressed image format
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                   b'Content-Type: image/webp\r\n\r\n' + frame + b'\r\n')
+
+    # Release VideoWriter and VideoCapture objects
+    out.release()
+    cap.release()
 
 def set_zoom(value = 1):
     global zoomVal
