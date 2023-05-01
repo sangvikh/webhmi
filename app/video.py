@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from io import BytesIO
 
 zoomVal = 1
 
@@ -7,8 +8,7 @@ def gen_frames():
     cap = cv2.VideoCapture(0)
 
     # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'VP90') # VP9 codec
-    out = cv2.VideoWriter('output.webm', fourcc, 20.0, (640, 480))
+    fourcc = cv2.VideoWriter_fourcc(*'VP80')  # VP8 codec
 
     while True:
         ret, frame = cap.read()
@@ -16,15 +16,17 @@ def gen_frames():
             break
         else:
             frame = zoom(frame, zoomVal)
-            out.write(frame)
 
-            ret, buffer = cv2.imencode('.webp', frame) # Compressed image format
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/webp\r\n\r\n' + frame + b'\r\n')
+            # Write frame to the in-memory buffer
+            buffer = BytesIO()
+            is_success, buf = cv2.imencode('.webp', frame)
+            if is_success:
+                buffer.write(buf)
+                frame = buffer.getvalue()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/webp\r\n\r\n' + frame + b'\r\n')
 
-    # Release VideoWriter and VideoCapture objects
-    out.release()
+    # Release VideoCapture object
     cap.release()
 
 def set_zoom(value = 1):
