@@ -5,11 +5,11 @@ zoomVal = 1
 def gen_frames():
     cap = cv2.VideoCapture(0)
     while True:
-        success, frame = cap.read()
-        frame = zoom(frame, zoomVal)
-        if not success:
+        ret, frame = cap.read()
+        if not ret:
             break
         else:
+            frame = zoom(frame, zoomVal)
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
