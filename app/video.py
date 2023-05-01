@@ -1,16 +1,15 @@
 import cv2
 from io import BytesIO
 
+# Define the compression quality (lower values for higher compression)
+compression_quality = 50
 zoomVal = 1
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
 
-    # Define the compression quality (lower values for higher compression)
-    compression_quality = 80
-
     # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'VP80')  # VP8 codec
+    fourcc = cv2.VideoWriter_fourcc(*'VP90')  # VP8 codec
 
     while True:
         ret, frame = cap.read()
@@ -38,28 +37,31 @@ def set_zoom(value = 1):
 
 def zoom(img, zoom, coord=None):
     """
-    Simple image zooming without boundary checking.
+    Simple image zooming with boundary checking.
     Centered at "coord", if given, else the image center.
 
     img: numpy.ndarray of shape (h,w,:)
     zoom: float
     coord: (float, float)
     """
-    # Limit minimum zoom to 1, or else image will be out of frame
-    zoom = max(zoom, 1)
-    
-    # Translate to zoomed coordinates
-    h, w, _ = [ zoom * i for i in img.shape ]
-    
+    h, w, _ = img.shape
+
     if coord is None:
         cx, cy = w/2, h/2
     else:
-        cx, cy = [ zoom*c for c in coord ]
-        # Limit cx and cy to keep image inside frame at all times
-    
-    img = cv2.resize( img, (0, 0), fx=zoom, fy=zoom)
-    img = img[ int(round(cy - h/zoom * .5)) : int(round(cy + h/zoom * .5)),
-               int(round(cx - w/zoom * .5)) : int(round(cx + w/zoom * .5)),
-               : ]
-    
-    return img
+        cx, cy = coord
+
+    # Calculate the crop dimensions
+    crop_h, crop_w = int(h / zoom), int(w / zoom)
+
+    # Calculate the crop boundaries
+    y1, y2 = max(0, int(cy - crop_h / 2)), min(h, int(cy + crop_h / 2))
+    x1, x2 = max(0, int(cx - crop_w / 2)), min(w, int(cx + crop_w / 2))
+
+    # Crop the image
+    cropped_img = img[y1:y2, x1:x2]
+
+    # Resize the cropped image
+    resized_img = cv2.resize(cropped_img, (w, h))
+
+    return resized_img
