@@ -30,6 +30,7 @@ def gen_frames():
     # Release VideoCapture object
     cap.release()
 
+# Set zoom, empty call resets to 1
 def set_zoom(value = 1):
     global zoomVal
     zoomVal = min(max(value, 1), 10)
@@ -51,8 +52,10 @@ def zoom(img, zoom, coord=None):
     else:
         cx, cy = coord
 
-    # Calculate the crop dimensions
+    # Clamp the coordinates based on the current zoom level
     crop_h, crop_w = int(h / zoom), int(w / zoom)
+    cx = min(max(cx, crop_w / 2), w - crop_w / 2)
+    cy = min(max(cy, crop_h / 2), h - crop_h / 2)
 
     # Calculate the crop boundaries
     y1, y2 = max(0, int(cy - crop_h / 2)), min(h, int(cy + crop_h / 2))
