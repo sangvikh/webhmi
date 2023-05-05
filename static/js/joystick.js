@@ -35,7 +35,7 @@ function handleTouchEnd(e) {
     e.preventDefault();
     joystick.style.transform = `translate(0%, 0%)`;
     isInsideJoystickArea = false;
-    updateJoystickValue(0, 0);
+    updateJoystickValue(0, 0, throttle = false);
 }
 
 function handleMouseDown(e) {
@@ -58,7 +58,7 @@ function handleMouseUp(e) {
     isMouseDown = false;
     joystick.style.transform = `translate(0%, 0%)`;
     isMouseDown = false;
-    updateJoystickValue(0, 0);
+    updateJoystickValue(0, 0, throttle = false);
 }
 
 function moveJoystick(input) {
@@ -87,11 +87,16 @@ function moveJoystick(input) {
 
 const throttledSendJoystickData = throttle(sendJoystickData, 100);
 
-function updateJoystickValue(x, y) {
+function updateJoystickValue(x, y, throttle = true) {
     // Update text content
     joystickValue.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
     // Send joystick data to the server
-    throttledSendJoystickData(x, y);
+    if (throttle) {
+        throttledSendJoystickData(x, y);
+    }
+    else {
+        sendJoystickData(x, y);
+    }
 }
 
 function sendJoystickData(x, y) {

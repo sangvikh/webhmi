@@ -2,14 +2,10 @@ import cv2
 from io import BytesIO
 
 # Define the compression quality (lower values for higher compression)
-compression_quality = 50
-zoomVal = 1
+compression_quality = 80
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
-
-    # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'VP90')  # VP8 codec
 
     while True:
         ret, frame = cap.read()
@@ -31,6 +27,7 @@ def gen_frames():
     cap.release()
 
 # Set zoom, empty call resets to 1
+zoomVal = 1
 def set_zoom(value = 1):
     global zoomVal
     zoomVal = min(max(value, 1), 10)
