@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
-from PCA9685 import PCA9685
+from . import PCA9685
 import time
 
 Dir = [
     'forward',
     'backward',
 ]
-pwm = PCA9685(0x40, debug=False)
+pwm = PCA9685.PCA9685(0x40, debug=False)
 pwm.setPWMFreq(50)
 
 class MotorDriver():
@@ -53,6 +53,7 @@ class MotorDriver():
 Motor = MotorDriver()
 
 def joyControl(x, y):
+    print("X: {}, Y: {}".format(x,y))
     speedA = max(-1, min(1, y + x))*100
     speedB = max(-1, min(1, y - x))*100
 

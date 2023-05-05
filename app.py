@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
-from motorcontrol import joyControl
+from app.motorcontrol import joyControl
 
 app = Flask(__name__)
 
