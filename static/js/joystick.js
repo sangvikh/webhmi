@@ -61,6 +61,8 @@ function handleMouseUp(e) {
     updateJoystickValue(0, 0);
 }
 
+const debouncedSendJoystickData = debounce(sendJoystickData, 10);
+
 function moveJoystick(input) {
     const rect = joystickArea.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;

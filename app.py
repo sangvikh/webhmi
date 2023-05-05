@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
+from motorcontrol import joyControl
 
 app = Flask(__name__)
 
@@ -15,6 +16,7 @@ def joystick_data():
     
     # Process joystick data
     print("x: {}, y: {}".format(x, y))
+    joyControl(float(x), float(y))
     
     return jsonify({'result': 'success'})
 
