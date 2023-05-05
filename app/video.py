@@ -7,9 +7,6 @@ compression_quality = 80
 def gen_frames():
     cap = cv2.VideoCapture(0)
 
-    # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'VP90')
-
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -19,7 +16,7 @@ def gen_frames():
 
             # Write frame to the in-memory buffer
             buffer = BytesIO()
-            is_success, buf = cv2.imencode('.webp', frame, [cv2.IMWRITE_WEBP_QUALITY, compression_quality])
+            is_success, buf = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, compression_quality])
             if is_success:
                 buffer.write(buf)
                 frame = buffer.getvalue()
