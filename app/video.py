@@ -16,7 +16,7 @@ def gen_frames():
 
             # Write frame to the in-memory buffer
             buffer = BytesIO()
-            is_success, buf = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, compression_quality])
+            is_success, buf = cv2.imencode('.webp', frame, [cv2.IMWRITE_WEBP_QUALITY, compression_quality])
             if is_success:
                 buffer.write(buf)
                 frame = buffer.getvalue()
