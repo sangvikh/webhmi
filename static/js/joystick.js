@@ -1,19 +1,33 @@
 class Joystick {
-    constructor(joystickId, joystickAreaId, joystickValueId, identifier) {
-        this.joystick = document.getElementById(joystickId);
-        this.joystickArea = document.getElementById(joystickAreaId);
-        this.joystickValue = document.getElementById(joystickValueId);
+    constructor(parentElementId, identifier) {
+        this.identifier = identifier;
 
-        this.initEventListeners();
-        this.startSendingJoystickData();
+        this.parentElement = document.getElementById(parentElementId);
+        
+        this.joystickArea = document.createElement('div');
+        this.joystickArea.id = `${identifier}JoystickArea`;
+        this.joystickArea.classList.add('joystick-area');
+        this.parentElement.appendChild(this.joystickArea);
+
+        this.joystick = document.createElement('div');
+        this.joystick.id = `${identifier}Joystick`;
+        this.joystick.classList.add('joystick');
+        this.joystickArea.appendChild(this.joystick);
+
+        this.joystickValue = document.createElement('div');
+        this.joystickValue.id = `${identifier}JoystickValue`;
+        this.joystickValue.classList.add('joystick-value');
+        this.parentElement.appendChild(this.joystickValue);
 
         this.isMouseDown = false;
         this.isInsideJoystickArea = false;
-
         this.joystickXNormalized = 0.0;
         this.joystickYNormalized = 0.0;
 
-        this.identifier = identifier;
+        this.activeTouches = new Map();
+
+        this.initEventListeners();
+        this.startSendingJoystickData();
     }
 
     initEventListeners() {
@@ -30,35 +44,40 @@ class Joystick {
     startSendingJoystickData() {
         setInterval(() => {
             this.sendJoystickData(this.joystickXNormalized, this.joystickYNormalized);
+            this.updateJoystickValue(this.joystickXNormalized, this.joystickYNormalized);
         }, 100);
     }
 
     handleTouchStart(e) {
-        if (e.target === this.joystick || e.target === this.joystickArea) {
-            e.preventDefault();
-            this.isInsideJoystickArea = true;
-            this.moveJoystick(e.targetTouches[0]);
+        for (const touch of Array.from(e.changedTouches)) {
+            if (touch.target === this.joystick || touch.target === this.joystickArea) {
+                e.preventDefault();
+                this.activeTouches.set(touch.identifier, touch);
+                this.moveJoystick(touch);
+            }
         }
     }
-    
+
     handleTouchMove(e) {
-        if (this.isInsideJoystickArea) {
-            e.preventDefault();
-            this.moveJoystick(e.targetTouches[0]);
+        for (const touch of Array.from(e.changedTouches)) {
+            if (this.activeTouches.has(touch.identifier)) {
+                e.preventDefault();
+                this.moveJoystick(touch);
+            }
         }
     }
-    
+
     handleTouchEnd(e) {
-        if (this.isInsideJoystickArea) {
-            e.preventDefault();
-            // Move the joystick to the center (zero position)
-            this.joystick.style.transform = `translate(0%, 0%)`;
-            this.isInsideJoystickArea = false;
-    
-            // Reset joystick values
-            this.joystickXNormalized = 0;
-            this.joystickYNormalized = 0;
-            this.updateJoystickValue(0, 0);
+        for (const touch of Array.from(e.changedTouches)) {
+            if (this.activeTouches.has(touch.identifier)) {
+                e.preventDefault();
+                this.joystick.style.transform = `translate(0%, 0%)`;
+                this.activeTouches.delete(touch.identifier);
+
+                // Reset joystick values
+                this.joystickXNormalized = 0;
+                this.joystickYNormalized = 0;
+            }
         }
     }
     
@@ -87,7 +106,6 @@ class Joystick {
             // Reset joystick values
             this.joystickXNormalized = 0;
             this.joystickYNormalized = 0;
-            this.updateJoystickValue(0, 0);
         }
     }
     
@@ -142,4 +160,5 @@ class Joystick {
     }    
 }
 
-const rightJoystick = new Joystick('joystick', 'joystickArea', 'joystickValue', 'right');
+const rightJoystick = new Joystick('rightWidget', 'right');
+const leftJoystick = new Joystick('leftWidget', 'left');
