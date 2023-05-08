@@ -32,10 +32,18 @@ function handleTouchMove(e) {
 }
 
 function handleTouchEnd(e) {
-    e.preventDefault();
-    joystick.style.transform = `translate(0%, 0%)`;
-    isInsideJoystickArea = false;
-    updateJoystickValue(0, 0, throttle = false);
+    if (isInsideJoystickArea) {
+        e.preventDefault();
+        // Move the joystick to the center (zero position)
+        joystick.style.transform = `translate(0%, 0%)`;
+        isInsideJoystickArea = false;
+
+        // Reset joystick values
+        joystickXNormalized = 0;
+        joystickYNormalized = 0;
+        updateJoystickValue(joystickXNormalized, joystickYNormalized);
+        sendJoystickData(joystickXNormalized, joystickYNormalized);
+    }
 }
 
 function handleMouseDown(e) {
@@ -54,12 +62,22 @@ function handleMouseMove(e) {
 }
 
 function handleMouseUp(e) {
-    e.preventDefault();
-    isMouseDown = false;
-    joystick.style.transform = `translate(0%, 0%)`;
-    isMouseDown = false;
-    updateJoystickValue(0, 0, throttle = false);
+    if (isMouseDown) {
+        e.preventDefault();
+        // Move the joystick to the center (zero position)
+        joystick.style.transform = `translate(0%, 0%)`;
+        isMouseDown = false;
+
+        // Reset joystick values
+        joystickXNormalized = 0;
+        joystickYNormalized = 0;
+        updateJoystickValue(joystickXNormalized, joystickYNormalized);
+        sendJoystickData(joystickXNormalized, joystickYNormalized);
+    }
 }
+
+let joystickXNormalized = 0;
+let joystickYNormalized = 0;
 
 function moveJoystick(input) {
     const rect = joystickArea.getBoundingClientRect();
@@ -81,51 +99,36 @@ function moveJoystick(input) {
 
     joystick.style.transform = `translate(${joystickX}px, ${joystickY}px)`;
 
-    // Update joystick values
-    updateJoystickValue(joystickX / maxDistance, joystickY / maxDistance);
+    // Update the displayed joystick values
+    joystickXNormalized = joystickX / maxDistance;
+    joystickYNormalized = joystickY / maxDistance;
+    updateJoystickValue(joystickXNormalized, joystickYNormalized);
 }
 
-const throttledSendJoystickData = throttle(sendJoystickData, 100);
-
-function updateJoystickValue(x, y, throttle = true) {
-    // Update text content
+function updateJoystickValue(x, y) {
     joystickValue.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
-    // Send joystick data to the server
-    if (throttle) {
-        throttledSendJoystickData(x, y);
-    }
-    else {
-        sendJoystickData(x, y);
-    }
 }
 
 function sendJoystickData(x, y) {
-  fetch('/joystick-data', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({x: x, y: y})
-  })
-  .then(response => response.json())
-  .then(data => {
-      if (data.result !== 'success') {
-          console.error('Error sending joystick data');
-      }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-  });
-}
-
-function throttle(func, limit) {
-    let lastCall = 0;
-
-    return function (...args) {
-        const now = Date.now();
-        if (now - lastCall >= limit) {
-            lastCall = now;
-            func(...args);
+    fetch('/joystick-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({x: x, y: y})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result !== 'success') {
+            console.error('Error sending joystick data');
         }
-    };
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
+
+// Send joystick data every 100 ms
+setInterval(() => {
+    sendJoystickData(joystickXNormalized, joystickYNormalized);
+}, 100);
