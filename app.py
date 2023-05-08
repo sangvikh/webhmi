@@ -11,11 +11,12 @@ def index():
 @app.route('/joystick-data', methods=['POST'])
 def joystick_data():
     data = request.json
+    id = data['id']
     x = data['x']
     y = data['y']
     
-    # Process joystick data
-    print("x: {}, y: {}".format(x, y))
+    # Process joystick data 
+    print("{}: x: {}, y: {}".format(id, x, y))
     joyControl(float(x), float(y))
     
     return jsonify({'result': 'success'})
