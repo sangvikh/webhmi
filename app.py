@@ -26,14 +26,24 @@ def video_feed():
     return Response(video.gen_frames(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/zoom_in', methods=['POST'])
-def zoom_in():
-    zoom = video.set_zoom(video.zoomVal * 1.05)
-    print("Zoom: {}".format(zoom))
-    return jsonify(result=zoom)
-@app.route('/zoom_out', methods=['POST'])
-def zoom_out():
-    zoom = video.set_zoom(video.zoomVal  * 0.95)
+@app.route('/zoom', methods=['POST'])
+def zoom():
+    data = request.get_json()
+
+    if 'direction' not in data:
+        return jsonify(error='No direction specified'), 400
+
+    direction = data['direction']
+
+    if direction == 'in':
+        zoom = video.set_zoom(video.zoomVal * 1.05)
+    elif direction == 'out':
+        zoom = video.set_zoom(video.zoomVal * 0.95)
+    elif direction == 'reset':
+        zoom = video.set_zoom()
+    else:
+        return jsonify(error='Invalid direction specified'), 400
+
     print("Zoom: {}".format(zoom))
     return jsonify(result=zoom)
 

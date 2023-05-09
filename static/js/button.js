@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function createButtonHandler(url, buttonId) {
+    function createButtonHandler(direction, buttonId) {
         const button = document.getElementById(buttonId);
         let intervalId;
 
         function updateNumber() {
-            fetch(url, {
+            fetch("/zoom", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify({ direction: direction })
             })
                 .then((response) => response.json())
                 .then((data) => {
@@ -37,6 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("touchend", stopUpdating);
     }
 
-    createButtonHandler("/zoom_in", "zoomInButton");
-    createButtonHandler("/zoom_out", "zoomOutButton");
+    createButtonHandler("in", "zoomInButton");
+    createButtonHandler("out", "zoomOutButton");
 });
