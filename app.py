@@ -47,5 +47,9 @@ def zoom():
     print("Zoom: {}".format(zoom))
     return jsonify(result=zoom)
 
+@app.route('/watchdog', methods=['GET'])
+def watchdog():
+    return jsonify({"status": "success", "message": "pong"})
+
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host="0.0.0.0")

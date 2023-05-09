@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Touch Joystick</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/watchdog.js') }}"></script>
 </head>
 <body>
-    <div class="banner" id="topBanner"style="top: 0;">
+    <div class="banner" id="topBanner"style="top: 0; display: inline-block; vertical-align: middle;">
         <p style="display: inline;">&emsp; Zoom: <span id="currentZoom">1.00</span></p>
         <p style="display: inline;">&emsp; Vbat: <span id="vBat">12.00 V</span></p>
         <p style="display: inline;">&emsp; Ibat: <span id="iBat">1.00 A</span></p>
         <p style="display: inline;">&emsp; Vsol: <span id="vSol">18.00 V</span></p>
         <p style="display: inline;">&emsp; Isol: <span id="iSol">0.50 A</span></p>
+        <img id="connectionStatusIcon" src="/static/images/no-wifi.png" style="display: none; float: right; height: 100%;">
     </div>
     <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
     
