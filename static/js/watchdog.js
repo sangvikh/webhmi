@@ -26,4 +26,4 @@ function checkConnection() {
 }
 
 // Call checkConnection every second
-setInterval(checkConnection, 1000);
+setInterval(checkConnection, timeout/2);

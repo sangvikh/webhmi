@@ -49,6 +49,7 @@ def zoom():
     print("Zoom: {}".format(zoom))
     return jsonify(result=zoom)
 
+timeout = 1.0
 last_ping_time = time.time()
 @app.route('/ping', methods=['GET'])
 def ping():
@@ -60,10 +61,10 @@ def watchdog_timer():
     global last_ping_time
     while True:
         time_since_last_ping = time.time() - last_ping_time
-        if time_since_last_ping > 1.0:
-            print('Connection lost!')
+        if time_since_last_ping > timeout:
+            print('Connection lost! t={}'.format(time_since_last_ping))
         # Sleep for a while to reduce CPU usage
-        time.sleep(0.1)
+        time.sleep(timeout/10)
 
 # Start the watchdog timer in a separate thread
 watchdog_thread = threading.Thread(target=watchdog_timer)
