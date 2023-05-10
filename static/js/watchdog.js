@@ -4,7 +4,7 @@ function checkConnection() {
     const startTime = new Date().getTime();
     const connectionStatusIcon = document.getElementById('connectionStatusIcon');
 
-    fetch('/watchdog') 
+    fetch('/ping') 
         .then(response => {
             const latency = new Date().getTime() - startTime;
             isConnected = latency < timeout; 

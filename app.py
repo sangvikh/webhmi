@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
+import time
+import threading
 #from app.motorcontrol import joyControl
 
 app = Flask(__name__)
@@ -47,9 +49,25 @@ def zoom():
     print("Zoom: {}".format(zoom))
     return jsonify(result=zoom)
 
-@app.route('/watchdog', methods=['GET'])
-def watchdog():
+last_ping_time = time.time()
+@app.route('/ping', methods=['GET'])
+def ping():
+    global last_ping_time
+    last_ping_time = time.time()
     return jsonify({"status": "success", "message": "pong"})
+
+def watchdog_timer():
+    global last_ping_time
+    while True:
+        time_since_last_ping = time.time() - last_ping_time
+        if time_since_last_ping > 1.0:
+            print('Connection lost!')
+        # Sleep for a while to reduce CPU usage
+        time.sleep(0.1)
+
+# Start the watchdog timer in a separate thread
+watchdog_thread = threading.Thread(target=watchdog_timer)
+watchdog_thread.start()
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host="0.0.0.0")
