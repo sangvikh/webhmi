@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
 import time
 import threading
-#from app.motorcontrol import joyControl
+from app.motorcontrol import joyControl
 
 app = Flask(__name__)
 
@@ -19,7 +19,8 @@ def joystick_data():
     
     # Process joystick data 
     print("{}: x: {}, y: {}".format(id, x, y))
-    #joyControl(float(x), float(y))
+    if (id == 'right'):
+        joyControl(float(x), float(y))
     
     return jsonify({'result': 'success'})
 
@@ -63,6 +64,7 @@ def watchdog_timer():
         time_since_last_ping = time.time() - last_ping_time
         if time_since_last_ping > timeout:
             print('Connection lost! t={}'.format(time_since_last_ping))
+            joyControl(0, 0)
         # Sleep for a while to reduce CPU usage
         time.sleep(timeout/10)
 
