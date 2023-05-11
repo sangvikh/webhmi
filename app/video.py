@@ -2,7 +2,7 @@ import cv2
 from io import BytesIO
 
 # Define the compression quality (lower values for higher compression)
-compression_quality = 80
+compression_quality = 40
 
 def gen_frames():
     cap = cv2.VideoCapture(0)
@@ -16,12 +16,12 @@ def gen_frames():
 
             # Write frame to the in-memory buffer
             buffer = BytesIO()
-            is_success, buf = cv2.imencode('.webp', frame, [cv2.IMWRITE_WEBP_QUALITY, compression_quality])
+            is_success, buf = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, compression_quality])
             if is_success:
                 buffer.write(buf)
                 frame = buffer.getvalue()
                 yield (b'--frame\r\n'
-                       b'Content-Type: image/webp\r\n\r\n' + frame + b'\r\n')
+                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
     # Release VideoCapture object
     cap.release()
