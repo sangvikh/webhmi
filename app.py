@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
-import time
-import threading
+import app.watchdog as wd
 from app.motorcontrol import joyControl
 
 app = Flask(__name__)
@@ -21,7 +20,6 @@ def joystick_data():
     print("{}: x: {}, y: {}".format(id, x, y))
     if (id == 'right'):
         joyControl(float(x), float(y))
-    
     return jsonify({'result': 'success'})
 
 @app.route('/video_feed')
@@ -35,7 +33,6 @@ def zoom():
 
     if 'direction' not in data:
         return jsonify(error='No direction specified'), 400
-
     direction = data['direction']
 
     if direction == 'in':
@@ -45,32 +42,20 @@ def zoom():
     elif direction == 'reset':
         zoom = video.set_zoom()
     else:
-        return jsonify(error='Invalid direction specified'), 400
+        return jsonify(error='Invalid direction specified')
 
     print("Zoom: {}".format(zoom))
     return jsonify(result=zoom)
 
-timeout = 1.0
-last_ping_time = time.time()
 @app.route('/ping', methods=['GET'])
 def ping():
-    global last_ping_time
-    last_ping_time = time.time()
+    watchdog.kick()
     return jsonify({"status": "success", "message": "pong"})
 
-def watchdog_timer():
-    global last_ping_time
-    while True:
-        time_since_last_ping = time.time() - last_ping_time
-        if time_since_last_ping > timeout:
-            print('Connection lost! t={}'.format(time_since_last_ping))
-            joyControl(0, 0)
-        # Sleep for a while to reduce CPU usage
-        time.sleep(timeout/10)
-
-# Start the watchdog timer in a separate thread
-watchdog_thread = threading.Thread(target=watchdog_timer)
-watchdog_thread.start()
+# Watchdog to handle communication loss
+def interlock():
+    joyControl(0, 0)
+watchdog = wd.Watchdog(func = interlock)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host="0.0.0.0")
