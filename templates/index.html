@@ -16,7 +16,11 @@
         <p style="display: inline;">&emsp; Isol: <span id="iSol">0.50 A</span></p>
         <img id="connectionStatusIcon" src="/static/images/no-wifi.png" style="display: none; float: right; height: 100%;">
     </div>
-    <div class="banner" id="bottomBanner"style="bottom: 0;"></div>
+
+    <div class="banner" id="bottomBanner"style="bottom: 0;">
+        <div id="messageBox" class="message-box"></div>
+        <script src="{{ url_for('static', filename='js/messagebox.js') }}"></script>
+    </div>
     
     <div class="widget" id="leftWidget" style="left: 0;">
         <button id="zoomInButton" class="zoom-button" style="left: 0">Zoom in</button>

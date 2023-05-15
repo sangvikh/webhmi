@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, jsonify, Response
 import app.video as video
 import app.watchdog as wd
-from app.motorcontrol import joyControl
+#from app.motorcontrol import joyControl
+import queue
 
 app = Flask(__name__)
+
+# Create a queue to store messages
+message_queue = queue.Queue()
 
 @app.route('/')
 def index():
@@ -19,7 +23,8 @@ def joystick_data():
     # Process joystick data 
     print("{}: x: {}, y: {}".format(id, x, y))
     if (id == 'right'):
-        joyControl(float(x), float(y))
+        print("joycontrol")
+        #joyControl(float(x), float(y))
     return jsonify({'result': 'success'})
 
 @app.route('/video_feed')
@@ -37,8 +42,10 @@ def zoom():
 
     if direction == 'in':
         zoom = video.set_zoom(video.zoomVal * 1.05)
+        message_queue.put("Zoom in")
     elif direction == 'out':
         zoom = video.set_zoom(video.zoomVal * 0.95)
+        message_queue.put("Zoom out")
     elif direction == 'reset':
         zoom = video.set_zoom()
     else:
@@ -54,8 +61,18 @@ def ping():
 
 # Watchdog to handle communication loss
 def interlock():
-    joyControl(0, 0)
+    print("interlocked")
+    #joyControl(0, 0)
 watchdog = wd.Watchdog(func = interlock)
+
+# Message box
+@app.route('/get_message', methods=['GET'])
+def get_message():
+    if not message_queue.empty():
+        return jsonify(message=message_queue.get())
+    else:
+        return jsonify(message=None)
+
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000, host="0.0.0.0")
